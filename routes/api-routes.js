@@ -23,7 +23,7 @@ module.exports = function (app) {
                 res.json(err);
             });
     })
-    // not finished ^^^^^--------------
+    
 
     app.post("/api/workouts", (req, res) => {
         db.Workout.create(
@@ -39,6 +39,17 @@ module.exports = function (app) {
             .catch(err => {
                 res.json(err);
             });
+    })
+
+    app.get("/api/workouts/range", (req, res) => {
+        db.Workout.find({}).limit(7).sort({date:1})
+        .then(workout => {
+            res.json(workout);
+        })
+        .catch(err => {
+            res.json(err);
+        });
+       
     })
 };
 
