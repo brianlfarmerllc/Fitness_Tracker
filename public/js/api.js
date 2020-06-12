@@ -10,7 +10,6 @@ const API = {
     const json = await res.json();
     return json;
   },
-// ------------^ Working ^-----------
 
   async addExercise(data) {
     const id = location.search.split("=")[1];
