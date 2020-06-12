@@ -30,8 +30,15 @@ const WorkoutSchema = new Schema({
                 type: Number,
             },
         }
-    ]
+    ],
+
+    totalDuration:Number
 });
+
+WorkoutSchema.methods.calcDuration = function() {
+    this.totalDuration = this.exercises.duration;
+    return this.totalDuration
+}
 
 const Workout = mongoose.model("Workout", WorkoutSchema);
 
