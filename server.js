@@ -3,9 +3,8 @@ const express = require("express");
 const logger = require("morgan");
 const mongoose = require("mongoose");
 
-// Setting up port and requiring models for syncing
+// Setting up port 
 const PORT = process.env.PORT || 3000;
-const db = require("./models");
 
 // creating express app
 const app = express();
@@ -24,7 +23,7 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", { use
 
 // Requiring our routes
 require("./routes/html-routes.js")(app);
-// require("./routes/api-routes.js")(app);
+require("./routes/api-routes.js")(app);
 
 
 // Start the server
