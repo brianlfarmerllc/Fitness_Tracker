@@ -7,91 +7,48 @@ mongoose.connect("mongodb://localhost/workout", {
 });
 
 let workoutSeed = [
-  {
-    day: new Date().setDate(new Date().getDate()-10),
-    exercises: [
-      {
-        type: "resistance",
-        name: "Bicep Curl",
-        duration: 20,
-        weight: 100,
-        reps: 10,
-        sets: 4
-      }
-    ]
-  },
-  {
-    day: new Date().setDate(new Date().getDate()-9),
-    exercises: [
-      {
-        type: "resistance",
-        name: "Lateral Pull",
-        duration: 20,
-        weight: 300,
-        reps: 10,
-        sets: 4
-      }
-    ]
-  },
-  {
-    day: new Date().setDate(new Date().getDate()-8),
-    exercises: [
-      {
-        type: "resistance",
-        name: "Push Press",
-        duration: 25,
-        weight: 185,
-        reps: 8,
-        sets: 4
-      }
-    ]
-  },
-  {
-    day: new Date().setDate(new Date().getDate()-7),
-    exercises: [
-      {
-        type: "cardio",
-        name: "Running",
-        duration: 25,
-        distance: 4
-      }
-    ]
-  },
-  {
-    day: new Date().setDate(new Date().getDate()-6),
-    exercises: [
-      {
-        type: "resistance",
-        name: "Bench Press",
-        duration: 20,
-        weight: 285,
-        reps: 10,
-        sets: 4
-      }
-    ]
-  },
-  {
-    day: new Date().setDate(new Date().getDate()-5),
-    exercises: [
-      {
-        type: "resistance",
-        name: "Bench Press",
-        duration: 20,
-        weight: 300,
-        reps: 10,
-        sets: 4
-      }
-    ]
-  },
+  
   {
     day: new Date().setDate(new Date().getDate()-4),
     exercises: [
       {
         type: "resistance",
-        name: "Quad Press",
-        duration: 30,
+        name: "Dumbell Squats",
+        duration: 8,
+        weight: 50,
+        reps: 15,
+        sets: 4
+      },
+      {
+        type: "resistance",
+        name: "Barbell Squats",
+        duration: 10,
         weight: 300,
-        reps: 10,
+        reps: 6,
+        sets: 5
+      },
+      {
+        type: "resistance",
+        name: "Deadlift",
+        duration: 12,
+        weight: 300,
+        reps: 6,
+        sets: 5
+      },
+      {
+        type: "resistance",
+        name: "Pull Up's",
+        duration: 10,
+        weight: 215,
+        reps: 12,
+        sets: 5
+      },
+      {
+        type: "resistance",
+        name: "Bent Over Row",
+        duration: 8,
+        weight: 165,
+        reps: 12,
         sets: 4
       }
     ]
@@ -100,15 +57,12 @@ let workoutSeed = [
     day: new Date().setDate(new Date().getDate()-3),
     exercises: [
       {
-        type: "resistance",
-        name: "Bench Press",
-        duration: 20,
-        weight: 300,
-        reps: 10,
-        sets: 4
+        type: "cardio",
+        name: "Mountain Biking",
+        duration: 90,
+        distance: 16
       }
-    ],
-    totalDuration:20
+    ]
   },
   {
     day: new Date().setDate(new Date().getDate()-2),
@@ -116,13 +70,44 @@ let workoutSeed = [
       {
         type: "resistance",
         name: "Military Press",
-        duration: 20,
-        weight: 300,
+        duration: 8,
+        weight: 100,
         reps: 10,
+        sets: 4
+      },
+      {
+        type: "resistance",
+        name: "Lateral Raises",
+        duration: 10,
+        weight: 30,
+        reps: 12,
+        sets: 5
+      },
+      {
+        type: "resistance",
+        name: "Bench Press",
+        duration: 12,
+        weight: 225,
+        reps: 8,
+        sets: 5
+      },
+      {
+        type: "resistance",
+        name: "Pushups",
+        duration: 12,
+        weight: 215,
+        reps: 20,
+        sets: 5
+      },
+      {
+        type: "resistance",
+        name: "Dips",
+        duration: 8,
+        weight: 215,
+        reps: 15,
         sets: 4
       }
     ],
-    totalDuration:20
   },
   {
     day: new Date().setDate(new Date().getDate()-1),
@@ -131,10 +116,9 @@ let workoutSeed = [
         type: "cardio",
         name: "Running",
         duration: 30,
-        distance: 2
+        distance: 3
       }
     ],
-    totalDuration:30
   }
 ];
 

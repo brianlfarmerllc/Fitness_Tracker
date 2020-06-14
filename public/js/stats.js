@@ -229,7 +229,7 @@ function populateDropdown(workouts) {
 
   const days = workouts.map(workout => workout.day)
   days.forEach(day => {
-    dropdown.append(`<option value="${day}">${day}</option>`)
+    dropdown.append(`<option value="${day}">${formatDate(day)}</option>`)
   });
 }
 
@@ -244,6 +244,7 @@ async function handleRoutineCahange() {
     barChart.destroy();
     pieChart.destroy();
     donutChart.destroy();
+    console.log(pastRoutine)
     populateChart(pastRoutine);
   }
 }
