@@ -1,27 +1,31 @@
 // global variables
 const dropdown = $("#workoutList");
+let lineChart;
+let barChart;
+let pieChart;
+let donutChart;
 // get all workout data from back-end
-async function workoutStats(){
+async function workoutStats() {
   const lastWorkout = await API.getWorkoutsInRange();
- if (lastWorkout) {
-   console.log(lastWorkout)
-   populateChart(lastWorkout); 
- };
+  if (lastWorkout) {
+    console.log(lastWorkout)
+    populateChart(lastWorkout);
+  };
 }
 workoutStats()
 
-async function workoutList(){
+async function workoutList() {
   const workoutList = await API.getWorkoutList();
- if (workoutList) {
-   populateDropdown(workoutList); 
- };
+  if (workoutList) {
+    populateDropdown(workoutList);
+  };
 }
 
 workoutList();
 
 
-  function generatePalette() {
-    const arr = [
+function generatePalette() {
+  const arr = [
     "#003f5c",
     "#2f4b7c",
     "#665191",
@@ -41,7 +45,7 @@ workoutList();
   ]
 
   return arr;
-  }
+}
 function populateChart(data) {
   let durations = duration(data);
   let pounds = calculateTotalWeight(data);
@@ -53,7 +57,7 @@ function populateChart(data) {
   let pie = document.querySelector("#canvas3").getContext("2d");
   let pie2 = document.querySelector("#canvas4").getContext("2d");
 
-  let lineChart = new Chart(line, {
+  lineChart = new Chart(line, {
     type: "line",
     data: {
       labels: workouts,
@@ -94,11 +98,11 @@ function populateChart(data) {
     }
   });
 
-  let barChart = new Chart(bar, {
+  barChart = new Chart(bar, {
     type: "bar",
     data: {
       labels: workouts,
-      
+
       datasets: [
         {
           label: "Pounds Per Exercise",
@@ -140,7 +144,7 @@ function populateChart(data) {
     }
   });
 
-  let pieChart = new Chart(pie, {
+  pieChart = new Chart(pie, {
     type: "pie",
     data: {
       labels: workouts,
@@ -160,7 +164,7 @@ function populateChart(data) {
     }
   });
 
-  let donutChart = new Chart(pie2, {
+  donutChart = new Chart(pie2, {
     type: "doughnut",
     data: {
       labels: workouts,
@@ -213,31 +217,46 @@ function workoutNames(data) {
       workouts.push(exercise.name);
     });
   });
-  
+
   return workouts;
 }
 
 function populateDropdown(workouts) {
   dropdown.empty();
-    dropdown.append(
-      `<option selected value="Last Workout">Last Workout</option>`
-    ); 
-  
-    const days = workouts.map(workout => workout.day)
+  dropdown.append(
+    `<option selected value="Last Workout">Last Workout</option>`
+  );
+
+  const days = workouts.map(workout => workout.day)
   days.forEach(day => {
-    dropdown.append(`<option value="${day}">${day.split()}</option>`)
+    dropdown.append(`<option value="${day}">${day}</option>`)
   });
 }
 
 async function handleRoutineCahange() {
   let selectedRoutine = $(this).val();
-    if (selectedRoutine === "Last Workout") {
-      workoutStats();
-    } else {
-      const pastRoutine = await API.getPastRoutine(selectedRoutine)
-      console.log(pastRoutine);
-      populateChart(pastRoutine);
-    }
+  if (selectedRoutine === "Last Workout") {
+    location.reload()
+  } else {
+    console.log(selectedRoutine)
+    const pastRoutine = await API.getPastRoutine(selectedRoutine)
+    lineChart.destroy();
+    barChart.destroy();
+    pieChart.destroy();
+    donutChart.destroy();
+    populateChart(pastRoutine);
+  }
+}
+// creating a display format for day in mongodb
+function formatDate(date) {
+  const options = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+  };
+
+  return new Date(date).toLocaleDateString(options);
 }
 
 
