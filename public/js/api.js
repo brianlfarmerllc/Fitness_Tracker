@@ -39,9 +39,35 @@ const API = {
   },
 
   async getWorkoutsInRange() {
-    const res = await fetch(`/api/workouts/range`);
+    let res;
+    try {
+      res = await fetch("/api/workouts/range");
+    } catch (err) {
+      console.log(err)
+    }
     const json = await res.json();
-    console.log(json)
     return json;
   },
+
+  async getWorkoutList() {
+    let res;
+    try {
+      res = await fetch("/api/workouts/routines");
+    } catch (err) {
+      console.log(err)
+    }
+    const json = await res.json();
+    return json;
+  },
+
+  async getPastRoutine(day) {
+    let res;
+    try {
+      res = await fetch("/api/workouts/routines/"+ day);
+    } catch (err) {
+      console.log(err)
+    }
+    const json = await res.json();
+    return json;
+  }
 };

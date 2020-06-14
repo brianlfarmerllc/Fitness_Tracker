@@ -1,15 +1,24 @@
+// global variables
+const dropdown = $("#workoutList");
 // get all workout data from back-end
+async function workoutStats(){
+  const lastWorkout = await API.getWorkoutsInRange();
+ if (lastWorkout) {
+   console.log(lastWorkout)
+   populateChart(lastWorkout); 
+ };
+}
+workoutStats()
 
-fetch("/api/workouts/range")
-  .then(response => {
-    return response.json();
-  })
-  .then(data => {
-    populateChart(data);
-  });
+async function workoutList(){
+  const workoutList = await API.getWorkoutList();
+ if (workoutList) {
+   populateDropdown(workoutList); 
+ };
+}
 
+workoutList();
 
-API.getWorkoutsInRange()
 
   function generatePalette() {
     const arr = [
@@ -47,15 +56,8 @@ function populateChart(data) {
   let lineChart = new Chart(line, {
     type: "line",
     data: {
-      labels: [
-        "Sunday",
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday"
-      ],
+      labels: workouts,
+
       datasets: [
         {
           label: "Workout Duration In Minutes",
@@ -95,18 +97,11 @@ function populateChart(data) {
   let barChart = new Chart(bar, {
     type: "bar",
     data: {
-      labels: [
-        "Sunday",
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-      ],
+      labels: workouts,
+      
       datasets: [
         {
-          label: "Pounds",
+          label: "Pounds Per Exercise",
           data: pounds,
           backgroundColor: [
             "rgba(255, 99, 132, 0.2)",
@@ -221,3 +216,30 @@ function workoutNames(data) {
   
   return workouts;
 }
+
+function populateDropdown(workouts) {
+  dropdown.empty();
+    dropdown.append(
+      `<option selected value="Last Workout">Last Workout</option>`
+    ); 
+  
+    const days = workouts.map(workout => workout.day)
+  days.forEach(day => {
+    dropdown.append(`<option value="${day}">${day.split()}</option>`)
+  });
+}
+
+async function handleRoutineCahange() {
+  let selectedRoutine = $(this).val();
+    if (selectedRoutine === "Last Workout") {
+      workoutStats();
+    } else {
+      const pastRoutine = await API.getPastRoutine(selectedRoutine)
+      console.log(pastRoutine);
+      populateChart(pastRoutine);
+    }
+}
+
+
+// event handelers
+dropdown.on("change", handleRoutineCahange);

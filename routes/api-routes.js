@@ -5,7 +5,6 @@ module.exports = function (app) {
     app.get("/api/workouts", (req, res) => {
         db.Workout.findOne({}).sort({ _id: -1 })
             .then(workout => {
-                console.log(workout)
                 res.json(workout);
                 
             })
@@ -33,7 +32,6 @@ module.exports = function (app) {
             },
         )
             .then(newWorkout => {
-                console.log(newWorkout)
                 res.json(newWorkout);
             })
             .catch(err => {
@@ -42,7 +40,7 @@ module.exports = function (app) {
     })
 
     app.get("/api/workouts/range", (req, res) => {
-        db.Workout.find({}).limit(7).sort({date:1})
+        db.Workout.find({}).sort({_id: -1}).limit(1)
         .then(workout => {
             res.json(workout);
         })
@@ -50,6 +48,26 @@ module.exports = function (app) {
             res.json(err);
         });
        
+    })
+
+    app.get("/api/workouts/routines", (req, res) => {
+        db.Workout.find({}).sort({_id: -1})
+        .then(workout => {
+            res.json(workout);
+        })
+        .catch(err => {
+            res.json(err);
+        });
+    })
+
+    app.get("/api/workouts/routines/:day", (req, res) => {
+        db.Workout.find({ day:req.params.day })
+        .then(routine => {
+            res.json(routine);
+        })
+        .catch(err => {
+            res.json(err);
+        });
     })
 };
 
