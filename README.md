@@ -34,7 +34,7 @@
 
   The following image demonstrates the application functionality:
 
-  ![Good Read Me Generator Demo](Add Gif)
+  ![Fitness Tracker Demo](./public/assets/fitness_tracker.gif)
 
   ## Technologies
 
