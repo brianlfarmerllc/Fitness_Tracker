@@ -27,7 +27,7 @@ module.exports = function (app) {
     app.post("/api/workouts", (req, res) => {
         db.Workout.create(
             {
-                date: Date.now(),
+                date: new Date().setDate(new Date().getDate()-2),
                 exercises: [],
             },
         )
