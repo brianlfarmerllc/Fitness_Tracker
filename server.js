@@ -1,4 +1,5 @@
 // Requiring necessary npm packages
+require('dotenv').config();
 const express = require("express");
 const logger = require("morgan");
 const mongoose = require("mongoose");
@@ -18,8 +19,11 @@ app.use(express.json());
 // setting public folder to static to render index.html at /
 app.use(express.static("public"));
 
-// connection configuration to mongo using mongoose
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", { useNewUrlParser: true });
+// connecting to mongo locally and with heroku
+mongoose.connect(process.env.MONGODB_URI || process.env.Atlas_Connect, {
+  useNewUrlParser: true,
+  useFindAndModify: false
+});
 
 // Requiring our routes
 require("./routes/html-routes.js")(app);
